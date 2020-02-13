@@ -76,8 +76,10 @@ class pwa4wp_Admin {
 	 * @since    1.0.2
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( $this->pwa4wp, plugin_dir_url( __FILE__ ) . 'css/pwa4wp-admin.css', array(), $this->version, 'all' );
-        wp_enqueue_style( 'wp-color-picker' );
+		if( strpos( get_current_screen()->base, $this->pwa4wp ) !== false ) {
+			wp_enqueue_style( $this->pwa4wp, plugin_dir_url( __FILE__ ) . 'css/pwa4wp-admin.css', array(), $this->version, 'all' );
+			wp_enqueue_style( 'wp-color-picker' );
+		}
 	}
 
 	/**
@@ -86,10 +88,12 @@ class pwa4wp_Admin {
 	 * @since    1.0.2
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script( $this->pwa4wp, plugin_dir_url( __FILE__ ) . 'js/pwa4wp-admin.js', array( 'jquery' ), $this->version, false );
-        wp_enqueue_script( 'wp-color-picker' );
-        wp_enqueue_script( 'media-uploader-main-js', plugins_url( 'js/media-uploader.js', __FILE__ ), array( 'jquery' ) );
-        wp_enqueue_media();
+		if( strpos( get_current_screen()->base, $this->pwa4wp ) !== false ) {
+			wp_enqueue_script( $this->pwa4wp, plugin_dir_url( __FILE__ ) . 'js/pwa4wp-admin.js', array( 'jquery' ), $this->version, false );
+			wp_enqueue_script( 'wp-color-picker' );
+			wp_enqueue_script( 'media-uploader-main-js', plugins_url( 'js/media-uploader.js', __FILE__ ), array( 'jquery' ) );
+			wp_enqueue_media();
+		}
 	}
 
 	public function setup_admin_menu() {
